@@ -5,6 +5,15 @@ import pylab
 import random
 from optparse import OptionParser
 
+lumpy_color='#003366'
+gasv_color='#0080ff'
+delly_color='#99ccff'
+
+matplotlib.rc('font',**{'family':'sans-serif', \
+    'sans-serif':['Helvetica']})
+matplotlib.rc('text', usetex=True)
+
+
 T=5516
 
 parser = OptionParser()
@@ -76,15 +85,25 @@ for coverage in sorted(R.keys()):
     #ax = fig.add_subplot(4,2,c)
     ax = fig.add_subplot(2,4,c)
     #ax.set_ylim([0,6000])
-    ax.set_ylim([0,1])
+    ax.set_ylim([0,1.0])
     ax.set_xlim([-0.5,4])
-    l_1_1_p = ax.bar(ind, l_1_1, width, color='k')
-    #l_1_100_p = ax.bar(ind+width, l_1_100, width, color='r')
-    g_p = ax.bar(ind+width*1, g, width, color='r')
-    d_p = ax.bar(ind+width*2, d, width, color='g')
 
-    for i in range(2,10,2):
-        matplotlib.pyplot.hlines(i/10.0,-0.5,5,colors='w')
+    minorLocator   = matplotlib.ticker.MultipleLocator(0.1)
+    ax.yaxis.set_minor_locator(minorLocator)
+    ax.yaxis.grid(b=True, which='minor', color='k', linestyle='--')
+    ax.yaxis.grid(b=True, which='major', color='k', linestyle='-')
+    ax.set_axisbelow(True) 
+
+
+
+
+    l_1_1_p = ax.bar(ind, l_1_1, width, color=lumpy_color)
+    #l_1_100_p = ax.bar(ind+width, l_1_100, width, color='r')
+    g_p = ax.bar(ind+width*1, g, width, color=gasv_color)
+    d_p = ax.bar(ind+width*2, d, width, color=delly_color)
+
+    #for i in range(2,10,2):
+        #matplotlib.pyplot.hlines(i/10.0,-0.5,5,colors='w')
 
     matplotlib.pyplot.title(str(int(coverage)) + 'x')
     matplotlib.pyplot.tick_params(axis='x',length=0)
@@ -92,10 +111,21 @@ for coverage in sorted(R.keys()):
 
     if c == 1:
         ax.set_ylabel('Sensitivity')
+        ax.set_yticklabels([0,0.2,0.4,0.6,0.8,1.0]) 
+        ax.spines['left'].set_visible(False)
 
     if c != 1:
         ax.set_yticklabels([]) 
         ax.spines['left'].set_visible(False)
+
+    #if c == 1:
+        #lg = ax.legend( (l_1_1_p[0], l_1_100_p[0], g_p[0],d_p[0]),\
+        #lg = ax.legend( (l_1_1_p[0],  g_p[0],d_p[0]),\
+                #('lumpy', 'GASVPro','DELLY'),\
+                #prop={'size':10},\
+                #loc=2)
+        #lg.draw_frame(False)
+
 
     if c == 7:
         ax.set_xticks(ind+width*2)
@@ -158,31 +188,43 @@ for coverage in sorted(R.keys()):
     ind = np.arange(N)
     ax = fig.add_subplot(2,4,c)
     #ax.set_ylim([0,6000])
-    ax.set_ylim([0,1])
+    ax.set_ylim([0,0.5])
     ax.set_xlim([-0.5,4])
-    l_1_1_p = ax.bar(ind, l_1_1, width, color='k')
-    #l_1_100_p = ax.bar(ind+width, l_1_100, width, color='r')
-    g_p = ax.bar(ind+width*1, g, width, color='r')
-    d_p = ax.bar(ind+width*2, d, width, color='g')
 
-    for i in range(2,10,2):
-        matplotlib.pyplot.hlines(i/10.0,-0.5,5,colors='w')
+    minorLocator   = matplotlib.ticker.MultipleLocator(0.05)
+    ax.yaxis.set_minor_locator(minorLocator)
+    ax.yaxis.grid(b=True, which='minor', color='k', linestyle='--')
+    ax.yaxis.grid(b=True, which='major', color='k', linestyle='-')
+    ax.set_axisbelow(True) 
+
+
+
+
+    l_1_1_p = ax.bar(ind, l_1_1, width, color=lumpy_color)
+    #l_1_100_p = ax.bar(ind+width, l_1_100, width, color='r')
+    g_p = ax.bar(ind+width*1, g, width, color=gasv_color)
+    d_p = ax.bar(ind+width*2, d, width, color=delly_color)
+
+    #for i in range(1,5,1):
+        #matplotlib.pyplot.hlines(i/10.0,-0.5,5,colors='w')
 
     #matplotlib.pyplot.title(pretty_type[sv_type])
     matplotlib.pyplot.tick_params(axis='x',length=0)
     matplotlib.pyplot.tick_params(axis='y',length=0)
 
     if c == 5:
-        ax.set_ylabel('Positive Predictive Value')
+        ax.set_ylabel('False Discovery Rate')
+        ax.set_yticklabels([0,0.1,0.2,0.3,0.4,0.5]) 
+        ax.spines['left'].set_visible(False)
 
-    if c == 5:
-        #lg = ax.legend( (l_1_1_p[0], l_1_100_p[0], g_p[0],d_p[0]),\
-        lg = ax.legend( (l_1_1_p[0],  g_p[0],d_p[0]),\
-                ('lumpy', 'GASVPro','DELLY'),\
-                prop={'size':10},\
-                loc=2)
-
-        lg.draw_frame(False)
+#    if c == 5:
+#        #lg = ax.legend( (l_1_1_p[0], l_1_100_p[0], g_p[0],d_p[0]),\
+#        lg = ax.legend( (l_1_1_p[0],  g_p[0],d_p[0]),\
+#                ('lumpy', 'GASVPro','DELLY'),\
+#                prop={'size':10},\
+#                loc=2)
+#
+#        lg.draw_frame(False)
 
     if c != 5:
         ax.set_yticklabels([]) 
@@ -198,6 +240,13 @@ for coverage in sorted(R.keys()):
 
     #c+=2
     c+=1
+
+l=fig.legend((l_1_1_p[0],  g_p[0],d_p[0]),\
+                ('LUMPY', 'GASVPro','DELLY'),\
+                prop={'size':10},\
+                loc=10,ncol=3)
+l.draw_frame(False)
+
 
 matplotlib.pyplot.savefig('heterozygous.png',bbox_inches='tight')
 matplotlib.pyplot.savefig('heterozygous.pdf',bbox_inches='tight')
