@@ -33,8 +33,7 @@
 \begin{document}
 \begin{bmcformat}
 
-\title{LUMPY: A probabilistic framework for structural variant
-discovery}
+\title{LUMPY: A probabilistic framework for structural variant discovery}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
 %% Enter the authors here                   %%
@@ -48,18 +47,15 @@ discovery}
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \author{
-Ryan M Layer$^1$
-\email{Ryan M Layer - rl6sf@virginia.edu}
-\and
+Ryan M Layer$^1$\email{Ryan M Layer - rl6sf@virginia.edu}\and
 Ira M Hall\correspondingauthor$^{2,3}$
 \email{Ira M Hall\correspondingauthor - irahall@virginia.edu}
-Aaron R Quinlan\correspondingauthor$^{2,3}$
 and
+Aaron R Quinlan\correspondingauthor$^{2,3}$
 \email{Aaron R Quinlan\correspondingauthor - arq5x@virginia.edu}
 }
 
-\address{
-\iid(1)Department of Computer Science, University of Virginia,
+\address{\iid(1)Department of Computer Science, University of Virginia,
 Charlottesville, VA\\
 \iid(2)Department of Biochemistry and Molecular Genetics,
 University of Virginia, Charlottesville, VA\\
@@ -93,11 +89,12 @@ coverage and for smaller SVs.
 \paragraph*{Results:}
 We present a novel and extremely flexible probabilistic SV discovery framework
 that is capable of integrating any number of SV detection signals including
-those generated from read alignments or prior evidence. We demonstrate improved
-sensitivity over extant methods by combining paired-end and split-read
-alignments and emphasize the utility of our framework for comprehensive studies
-of structural variation in heterogeneous tumor genomes.
+those generated from read alignments or prior evidence.
 \paragraph*{Conclusions:}
+We demonstrate improved sensitivity over extant methods by combining paired-end
+and split-read alignments and emphasize the utility of our framework for
+comprehensive studies
+of structural variation in heterogeneous tumor genomes.
 \end{abstract}
 
 \ifthenelse{\boolean{publ}}{\begin{multicols}{2}}{}
@@ -229,18 +226,49 @@ alignment~\cite{li2009b} files from one or more samples.
 %\end{figure}
 
 \subsection*{Comparison of discovery performance on simulated datasets}
-In order to assess the performance of our framework, we compared LUMPY's
-discovery accuracy using paired-end (PE) alignments, split-read (SR) alignments,
-and both signals to three widely used SV discovery packages:
-HYDRA \cite{quinlan2010b}, GASVPRO \cite{sindi2012} and
-DELLY \cite{rausch2012b}. We created a simulated experimental genome by
-generating 1000 deletions, duplications, insertions, and inversions
-(4000 events total) throughout chromosome 10 of the human genome (build 37)
-using SVsim (G. Faust, unpublished).  For each SV event type, half
-of the variants were less than 1kb and the other half were greater than 1kb (see
-Methods for details).  We used the WGSIM (H. Li, unpublished) paired-end read
-simulator to ``sequence'' the simulated genome to 2, 5, and 20 fold
-haploid coverage (Methods).
+Purely homogenous DNA samples are rare, especially in a clinical setting where
+biopsied samples include a mixture of both normal and abnormal tissue.  To
+assess the performance of our framework in this realistic scenario, we simulated
+heterogeneous samples by pooling reads from an affected genome and an unaffected
+genome at varying ratios.  The affected genome was created using
+SVsim~(G.~Faust, unpublished) to modify the human genome (build 37) to include
+5516 non-overlapping deletions identified by the 1000 Genomes Project, and the
+unaffected genome was the unaltered human reference genome (build 37).  The
+ratio of reads from the affected genome was varied between 5\% and 50\% of the
+total reads, and the total coverage was varied between 10x and 80x.  For
+example, to simulate a sample with a 5\% ratio at 10x coverage, we used the
+paired-end read simulator WGSIM~(H.~Li, unpublished) to “sequence” the affected
+genome at 0.5x coverage and the unaffected genome at 9.5x coverage.  The two
+sets of reads are then pooled into a single 10x-coverage heterogeneous sample.
+
+To assess the impact coverage, SV type, and SV size have on the performance of
+our framework, we simulated a set of experimental genomes using SVsim that
+included 1000 deletions, duplications, insertions, and inversions randomly
+placed on chromosome 10 of the human genome (build 37).  For each SV type, half
+of the variants were less than 1kb and the other half were greater than 1kb.  We
+used WGSIM to “sequence” each simulated genome at 2x, 5x, 10x, 20x, and 50x
+haploid coverage.
+
+We compared LUMPY’s sensitivity and false discovery rate to two other SV
+discovery packages GASVPro~\cite{sindi2012} and DELLY~\cite{rausch2012b}.
+GASVPro and DELLY were selected because both tools are widely used (DELLY is
+part of the 1000 Genomes Project analysis), both consider a secondary SV signal
+along with paired-end alignments (coverage and unmapped/split-reads,
+respectively), and both have demonstrated improvement the popular SV tools
+Breakdancer and HYDRA~\cite{quinlan2010b}. 
+
+
+%In order to assess the performance of our framework, we compared LUMPY's
+%discovery accuracy using paired-end (PE) alignments, split-read (SR)
+%alignments, and both signals to three widely used SV discovery packages: HYDRA
+%\cite{quinlan2010b}, GASVPRO \cite{sindi2012} and DELLY \cite{rausch2012b}. We
+%created a simulated experimental genome by generating 1000 deletions,
+%duplications, insertions, and inversions (4000 events total) throughout
+%chromosome 10 of the human genome (build 37) using SVsim (G. Faust,
+%unpublished).  For each SV event type, half of the variants were less than 1kb
+%and the other half were greater than 1kb (see Methods for details).  We used
+%the WGSIM (H. Li, unpublished) paired-end read simulator to ``sequence'' the
+%simulated genome to 2, 5, and 20 fold haploid coverage (Methods).
 
 \subsection*{Discovery sensitivity}
 The predicted SV breakpoints from each discovery approach were compared to the
