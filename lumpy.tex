@@ -79,22 +79,47 @@ Center for Public Health Genomics, University of Virginia, Charlottesville, VA
 %framework for comprehensive studies of structural variation in often
 %heterogeneous tumor genomes. We further discuss the utility of this generic
 %approach for probabilistic interpretation of diverse genomic data.
-\paragraph*{Background:}
-Comprehensive discovery of structural variation (SV) in human genomes from DNA
-sequencing requires the integration of multiple alignment signals including
-read-pair, split-read and read-depth. However, owing to inherent technical
-challenges, most existing SV discovery approaches utilize only one signal and
-consequently suffer from reduced sensitivity, especially at low sequence
-coverage and for smaller SVs.
-\paragraph*{Results:}
-We present a novel and extremely flexible probabilistic SV discovery framework
-that is capable of integrating any number of SV detection signals including
-those generated from read alignments or prior evidence.
-\paragraph*{Conclusions:}
-We demonstrate improved sensitivity over extant methods by combining paired-end
-and split-read alignments and emphasize the utility of our framework for
-comprehensive studies
-of structural variation in heterogeneous tumor genomes.
+%\paragraph*{Background:}
+%Comprehensive discovery of structural variation (SV) in human genomes from DNA
+%sequencing requires the integration of multiple alignment signals including
+%read-pair, split-read and read-depth. However, owing to inherent technical
+%challenges, most existing SV discovery approaches utilize only one signal and
+%consequently suffer from reduced sensitivity, especially at low sequence
+%coverage and for smaller SVs.
+%\paragraph*{Results:}
+%We present a novel and extremely flexible probabilistic SV discovery framework
+%that is capable of integrating any number of SV detection signals including
+%those generated from read alignments or prior evidence.
+%\paragraph*{Conclusions:}
+%We demonstrate improved sensitivity over extant methods by combining paired-end
+%and split-read alignments and emphasize the utility of our framework for
+%comprehensive studies
+%of structural variation in heterogeneous tumor genomes.
+\paragraph*{Background:} Comprehensive discovery of structural variation (SV) in
+human genomes from DNA sequencing requires the integration of multiple alignment
+signals including read-pair, split-read and read-depth.  In a heterogeneous
+mixture of diploid genomes, a rare variant may be covered by only a few reads.
+Since reads typically produce only one alignment signal, any SV detection
+algorithm that considers a single signal, or considerers signals individually,
+will be unable to identify variants with a diffuse signal.  However, owing to
+inherent technical challenges, most existing SV discovery approaches do not
+integrate signals and consequently suffer from reduced sensitivity at low
+sequence coverage and for rare SVs.
+\paragraph*{Results:} We present a novel and extremely flexible probabilistic SV
+discovery framework that is capable of integrating any number of SV detection
+signals including those generated from read alignments or prior evidence.  Our
+framework facilitates this integration by mapping each SV signal to a common
+abstract representation, and then performs all SV prediction operations at this
+higher level.  This type of abstraction not only allows for efficient and
+natural signal integration, it is easily extended to consider new signals.
+\paragraph*{Conclusions:} We demonstrate that integrating paired-end and
+split-read signals results in a marked improvement in sensitivity over extant
+methods in cases where the SV signal is rare (low coverage, low SV allele
+frequency, or both).  We also show that there is no increase in false discovery
+rate when integrating signals.   SV detection improvements in these instances
+are important in clinical settings where it is especially important to identify
+variants present in only a small portion of cells in a sample.
+
 \end{abstract}
 
 \ifthenelse{\boolean{publ}}{\begin{multicols}{2}}{}
