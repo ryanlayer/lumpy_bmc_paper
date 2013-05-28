@@ -100,7 +100,7 @@ human genomes from DNA sequencing requires the integration of multiple alignment
 signals including read-pair, split-read and read-depth.  In a heterogeneous
 mixture of diploid genomes, a rare variant may be covered by only a few reads.
 Since reads typically produce only one alignment signal, any SV detection
-algorithm that considers a single signal, or considerers signals individually,
+algorithm that considers a single signal, or considers signals individually,
 will be unable to identify variants with a diffuse signal.  However, owing to
 inherent technical challenges, most existing SV discovery approaches do not
 integrate signals and consequently suffer from reduced sensitivity at low
@@ -205,7 +205,7 @@ Our framework provides distinct modules that map signals from each alignment
 evidence type to our common probability interval pair.  For example, paired-end
 sequence alignments are projected to a pair of intervals upstream or downstream
 (depending on orientation) of the mapped ends (Figure 1).  The size of the
-intervals and the likelihood at each position is based on the emperical size
+intervals and the likelihood at each position is based on the empirical size
 distribution of the sample's DNA fragment library.  The distinct advantage of
 this approach is that \emph{any} type of evidence can be considered, as long
 there exists a direct mapping from the alignment signal to breakpoint
@@ -251,8 +251,8 @@ alignment~\cite{li2009b} files from one or more samples.
 %\end{figure}
 
 \subsection*{Comparison of discovery performance on simulated datasets}
-Purely homogenous DNA samples are rare, especially in a clinical setting where
-biopsied samples include a mixture of both normal and abnormal tissue.  To
+Purely homogeneous DNA samples are rare, especially in a clinical setting where
+biopsies samples include a mixture of both normal and abnormal tissue.  To
 assess the performance of our framework in this realistic scenario, we simulated
 heterogeneous samples by pooling reads from an affected genome and an unaffected
 genome at varying ratios.  The affected genome was created using
@@ -260,11 +260,11 @@ SVsim~\cite{faustunpub} to modify the human genome (build 37) to include
 5516 non-overlapping deletions identified by the 1000 Genomes Project, and the
 unaffected genome was the unaltered human reference genome (build 37).  The
 ratio of reads from the affected genome to the total number of reads in the
-sample (SV allel frequency) was varied between 5\% and 50\%, and the total
+sample (SV allele frequency) was varied between 5\% and 50\%, and the total
 coverage was varied between 10x and 80x.  For example, to simulate a sample with
-a 5\% SV allel frequency at 10x coverage, we used the paired-end read simulator
+a 5\% SV allele frequency at 10x coverage, we used the paired-end read simulator
 WGSIM~\cite{liunpub} to “sequence” the affected genome at 0.5x coverage and the
-unaffected genome at 9.5x coverage.  The lengh of each read was 150bp and the
+unaffected genome at 9.5x coverage.  The length of each read was 150bp and the
 fragments had a median size of 500bp with a standard deviation of 50bp.  The two
 sets of reads are then pooled into a single 10x-coverage heterogeneous sample.
 
@@ -273,7 +273,7 @@ our framework, we simulated a set of experimental genomes using SVsim that
 included 1000 deletions, duplications, insertions, and inversions randomly
 placed on chromosome 10 of the human genome (build 37).  For each SV type, 
 the variant size ranged from 100bp to 10kb.  We used WGSIM to “sequence” each
-simulated genome at 2x, 5x, 10x, 20x, and 50x haploid coverage.  The lengh of
+simulated genome at 2x, 5x, 10x, 20x, and 50x haploid coverage.  The length of
 each read was 150bp and the fragments had a median size of 500bp with a standard
 deviation of 50bp.
 
@@ -302,7 +302,7 @@ Breakdancer~\cite{chen2009} and HYDRA~\cite{quinlan2010b}.
 The predicted SV breakpoints from each discovery approach were compared to the
 simulated breakpoints in order to measure each approach’s sensitivity and false
 discovery rate (FDR) for both the heterogeneous experiment (Figure 2) and the
-homogenous experiment (Figure 3).
+homogeneous experiment (Figure 3).
 
 In the heterogeneous experiment, LUMPY is more sensitive than GASVPro and DELLY
 in all cases, and has marked improvement when the coverage of the affected
@@ -316,7 +316,7 @@ requires.  At 40x coverage LUMPY detects 30\% of variants when the SV allele
 frequency is 5\%, while GASVPro and DELLY do not reach this level of sensitivity
 (36\% and 33\%, respectively) until the SV allele frequency is 10\%.
 
-In the homogenous experiment, LUMPY is consistently more sensitive than other
+In the homogeneous experiment, LUMPY is consistently more sensitive than other
 approaches in all cases, has a marked improvement at lower coverage, and can
 detect all SV types (GASVPro does detect duplications and DELLY does not detect
 insertions).   For example, LUMPY detects 31\% and 79\% of all deletions at 2
@@ -324,12 +324,12 @@ and 5 fold genome coverage, whereas GASVPro and DELLY detect 4.3\%/35\% and
 3.4\%/38.4\%, respectively.  At lower coverage (i.e., 2 and 5X), LUMPY’s
 sensitivity is greater than all other approaches across all SV types. At most,
 LUMPY was 9 times more sensitive than the second most sensitive approach at low
-coverage (LUMPY 31% vs. DELLY 3.4% for deletions at 2X coverage). At worst, it
-was 1.01 times more sensitive for inversions at 5X coverage (LUMPY 90% vs.
-GASVPRO 82%). At higher (20X and 50x) coverage, LUMPY’s sensitivity advantage
-persists; it ranges from 90% to 98.7% across all SV types, whereas GASVPRO and
-DELLY range from 67% to 93% and from 82% to 95%, respectively (excluding the SV
-types which GASVPRO and DELLY are incapable of detecting).  
+coverage (LUMPY 31\% vs. DELLY 3.4\% for deletions at 2X coverage). At worst, it
+was 1.01 times more sensitive for inversions at 5X coverage (LUMPY 90\% vs.
+GASVPRO 82\%). At higher (20X and 50x) coverage, LUMPY’s sensitivity advantage
+persists; it ranges from 90\% to 98.7\% across all SV types, whereas GASVPRO and
+DELLY range from 67\% to 93\% and from 82\% to 95\%, respectively (excluding the
+SV types which GASVPRO and DELLY are incapable of detecting).  
 
 
 %Tratiee predicted SV breakpoints from each discovery approach were compared to the
@@ -399,30 +399,30 @@ higher than the analogous LUMPY FDRs. These results indicate that LUMPY's
 probabilistic framework afford substantial improvements in discovery
 sensitivity while maintaining low false discovery rates.
 
-\begin{table}[h!b!p!]
-\small
-\caption{False discovery rates for each SV discovery approach.}
-\begin{tabular}{l|lll|lll|lll|lll}
-		Coverage
-		&20x&5x&2x &20x&5x&2x &20x&5x&2x &20x&5x&2x \\
-\cline{1-13}
-			Variety
-			&\multicolumn{3}{c}{Deletions}
-			&\multicolumn{3}{|c}{Duplications}
-			&\multicolumn{3}{|c}{Insertions}
-			&\multicolumn{3}{|c}{Inversions} \\
-\cline{1-13}
-lumpy-pe		&0.014&0.008&0&0.004&0	  &0    &0.042&0.016&0	  &0.004&0	  &0 \\
-lumpy-sr      &0.006&0	&0&0.005&0.003&0	&0.013&0.006&0	  &0.004&0.001&0 \\
-lumpy    &0.018&0.005&0&0.007&0.001&0	&0.05 &0.009&0	  &0.009&0.002&0 \\
-hydra   &0.038&0.006&0&0.03 &0.011&0	&0.089&0.034&0.03 &0.054&0.006&0 \\
-gasvpro	&0	  &0	&0&N/A  &N/A  &N/A  &0.242&0.065&0.041&0.005&0.082&0.079 \\
-delly-pe	&0.002&0	&0&0	&0	  &0.028&N/A  &N/A	&N/A  &0	&0	  &0 \\
-delly-sr	&0	  &0	&0&0	&0	  &0	&N/A  &N/A	&N/A  &0.004&0	  &0 \\
-
-\end{tabular}
-\label{table:fdr}
-\end{table}
+%\begin{table}[h!b!p!]
+%\small
+%\caption{False discovery rates for each SV discovery approach.}
+%\begin{tabular}{l|lll|lll|lll|lll}
+%		Coverage
+%		&20x&5x&2x &20x&5x&2x &20x&5x&2x &20x&5x&2x \\
+%\cline{1-13}
+%			Variety
+%			&\multicolumn{3}{c}{Deletions}
+%			&\multicolumn{3}{|c}{Duplications}
+%			&\multicolumn{3}{|c}{Insertions}
+%			&\multicolumn{3}{|c}{Inversions} \\
+%\cline{1-13}
+%lumpy-pe		&0.014&0.008&0&0.004&0	  &0    &0.042&0.016&0	  &0.004&0	  &0 \\
+%lumpy-sr      &0.006&0	&0&0.005&0.003&0	&0.013&0.006&0	  &0.004&0.001&0 \\
+%lumpy    &0.018&0.005&0&0.007&0.001&0	&0.05 &0.009&0	  &0.009&0.002&0 \\
+%hydra   &0.038&0.006&0&0.03 &0.011&0	&0.089&0.034&0.03 &0.054&0.006&0 \\
+%gasvpro	&0	  &0	&0&N/A  &N/A  &N/A  &0.242&0.065&0.041&0.005&0.082&0.079 \\
+%delly-pe	&0.002&0	&0&0	&0	  &0.028&N/A  &N/A	&N/A  &0	&0	  &0 \\
+%delly-sr	&0	  &0	&0&0	&0	  &0	&N/A  &N/A	&N/A  &0.004&0	  &0 \\
+%
+%\end{tabular}
+%\label{table:fdr}
+%\end{table}
 
 
 \subsection*{Benefits of integrating all signals for SV discovery}
@@ -450,7 +450,7 @@ quinlan2011}, especially when searching for mutations that are rare or private
 to a single sample. The LUMPY framework naturally handles multiple samples by
 tracking the sample origin of each probability distribution during clustering.
 Given that LUMPY can analyze a single human dataset (HG00262 from the 1000
-Genomes Project) comprising 104 million readpairs in less than an hour with one
+Genomes Project) comprising 104 million read pairs in less than an hour with one
 thread, we anticipate that simultaneous analysis of tens to hundreds of genomes
 will be possible with LUMPY using commodity hardware.
 
@@ -483,12 +483,12 @@ assigned to each base pair in a candidate breakpoint region. The result is a
 dramatic increase in SV discovery sensitivity and a corresponding increase in
 the resolution of the predicted breakpoint interval.
 
-We emphasize that the framework's flexibility permits facile improvements to
-sensitivity through the integration of alignment data from multiple samples
-(e.g., tumors and matched normal tissue), as well sites of known rearrangement.
-For example, while our FDR was slightly higher for deletions than other tools,
-integrating copy-number predictions into our calling framework similar to
-GASVPRO (Figure~\ref{workflow:fig}; generic module) would bring our deletion FDR to nearly zero.
+%We emphasize that the framework's flexibility permits facile improvements to
+%sensitivity through the integration of alignment data from multiple samples
+%(e.g., tumors and matched normal tissue), as well sites of known rearrangement.
+%For example, while our FDR was slightly higher for deletions than other tools,
+%integrating copy-number predictions into our calling framework similar to
+%GASVPRO (Figure 1; generic module) would bring our deletion FDR to nearly zero.
 
 It has not escaped our notice that this general approach can be used to perform
 probabilistic set theory operations on diverse genomic interval datasets. One
@@ -556,16 +556,37 @@ $p[i]$ is the relative probability that position $s+i$ is one end of the
 breakpoint; and $v$ is the breakpoint variety (e.g., $\textsc{Deletion}$,
 $\textsc{Duplication}$, etc.)
 
-If there exits two breakpoints $b$ and $c$ in the set of all breakpoints $B$
+If there exists two breakpoints $b$ and $c$ in the set of all breakpoints $B$
 where $b$ and $c$  intersect ($b.r$ intersects $c.r$, $b.l$ intersects $c.r$,
 and $b.v = c.v$), then $b$ and $c$ are {\em merged} into interval $m$, $b$ and
-$c$ are removed from $B$, and $m$ is placed into $B$.  The merged breakpoint $m$
-is defined as $\langle E = b.E + c.E, l_n, r_n, v = b.v = c.v\rangle$, where
-$l_n.s = \max(b.l.s, c.l.s)$, $l_n.e = \min(b.l.e, c.l.e)$, similar for $r_n$.
-Once all evidence has been considered, the breakpoints in $B$ are enumerated.
-Since each genomic interval has a probability array associated with it, the
-intervals may be trimmed to include only the positions that meet are in the top
-percentile (e.g., top 99.9 percent of values).
+$c$ are removed from $B$, and $m$ is placed into $B$.  The evidence set $m.E$ is
+the union of the evidence sets $b.E$ and $c.E$.  
+
+A straight-forward method to define breakpoint intervals $m.l$ and $m.r$ would
+would be to let $m.l.s = \max(b.l.s, c.l.s)$, $m.l.e = \min(b.l.e, c.l.e)$,
+similar for $m.r$.  However, if a spurious alignment is merged into a set
+genuine breakpoints, the resulting breakpoint interval can be ``pulled'' away
+from the actual breakpoint.  The impact of an outlier can be minimized or
+eliminated once the full set of agreeing alignments is collected for a given
+breakpoint, but collecting the full set is complicated by the fact that
+alignments are considered in-order and outliers typically occur first.  To
+account for this, we define a liberal merge process where $m.l.s$ is the mean
+start position for the left intervals in $m.E$, and  $m.l.e$ is the mean
+end position for the left intervals in $m.E$, similar for $m.r$.
+
+Once all the evidence has been considered, an SV call $s$ is make for each
+breakpoint $b\in B$.  The boundaries of the breakpoint intervals $s.l$ and $s.r$
+are the trimmed mixture distributions of the left and right intervals in $b.E$.
+Let $s.l.s=min( \{e.l.s | e\in b.E\})$, $s.l.e=min( \{e.l.e | e\in b.E\})$, and
+$s.l.p[i] = \Sum_{e \in b.E} e.l.p[i-o]$ where $o$ is the offset value
+$e.l.s-s.l.s$.  Similar for $s.r$.  The value at $s.l.p[i]$ (or $s.r.p[i]$)
+represents the level of agreement among the evidence in $b.E$ that position $i$
+is one end of the breakpoint.  The intervals $s.l$ and $s.r$ are then trimmed to
+include only those positions that are in the top percentile (e.g., top 99.9
+percent of values).  An outlier in $b.E$ will extend the interval $s.l$, but the
+extended region will have little support from other elements in $b.E$ and values
+of $s.p$ in that region will relatively small and are likely to be removed in
+the trimming process. 
 
 \subsection*{Breakpoint Evidence}
 
@@ -778,10 +799,10 @@ the ends of the predicted interval as the predicted breakpoint.  A similar
 conversion was performed for HYDRA.
 
 \section*{Authors contributions}
-R. Layer devleoped the algorithms, wrote the software, and performed the
+R. Layer developed the algorithms, wrote the software, and performed the
 experiments.  I. Hall and A. Quinlan paid him.
 
-\section*{Acknowledgements}
+\section*{Acknowledgments}
 \ifthenelse{\boolean{publ}}{\small}{}
 We thank G. Faust for sharing unpublished SV simulation algorithms, M. Lindberg
 for code development, A. Ritz and S. Sindi for help with GASVPRO, and T. Rausch
@@ -820,17 +841,17 @@ heterogeneous sample}
 %\includegraphics[width=6.5in]{graph/homozygous.eps}
 %\label{sensitivity:fig}
 %\end{figure}
-SV discovery sensitivity and false disovery rate (FDR) for LUMPY, GASVPRO, and
+SV discovery sensitivity and false discovery rate (FDR) for LUMPY, GASVPRO, and
 DELLY for different ratios of affected to unaffected reads at different coverage
 levels.
 
-\subsection*{Figure 3 - Sensitivity and false discovery rate in a homogenous
+\subsection*{Figure 3 - Sensitivity and false discovery rate in a homogeneous
 sample on chromosome 10}
 %\begin{figure}
 %\includegraphics[width=6.5in]{graph/homozygous.eps}
 %\label{sensitivity:fig}
 %\end{figure}
-SV discovery sensitivity and false disovery rate (FDR) for LUMPY, GASVPRO, and
+SV discovery sensitivity and false discovery rate (FDR) for LUMPY, GASVPRO, and
 DELLY for different SV types across multiple genome coverage levels.
 
 
