@@ -187,19 +187,19 @@ Our probabilistic framework is based upon a general probabilistic representation
 of an SV breakpoint that allows any number of SV alignment signals to be
 integrated into a single discovery process (Methods). An integrative approach
 allows for more sensitive SV discovery than methods that examine merely one
-signal, especially with low coverage data, because each individual read
-generally produces only one signal type (e.g., read-pair or split-read, but not
-both). Moreover, even with high coverage data, integration of multiple signals
-can increase specificity by allowing for more stringent criteria for reporting a
-variant call.
+signal, especially when considering heterogenouse samples and low coverage data,
+because each individual read generally produces only one signal type (e.g.,
+read-pair or split-read, but not both). Moreover, even with high coverage data,
+integration of multiple signals can increase specificity by allowing for more
+stringent criteria for reporting a variant call.
 
 We define a breakpoint as a pair of bases that are adjacent in a sample genome
 but not in a reference genome. To account for the varying level of noise
 inherent to different types of alignment evidence, we represent a breakpoint
 with pair of probability distributions spanning the predicted breakpoint regions
-(Figure~\ref{workflow:fig}, Methods). Each position in the two intervals is
-assigned a probability that represents the relative likelihood that the given
-position represents one end of the breakpoint.
+(Figure 1, Methods). Each position in the two intervals is assigned a
+probability that represents the relative likelihood that the given position
+represents one end of the breakpoint.
 
 Our framework provides distinct modules that map signals from each alignment
 evidence type to our common probability interval pair.  For example, paired-end
@@ -214,11 +214,11 @@ to breakpoint likelihood intervals: paired-end, split-read, and generic.  We
 emphasize that our framework is extensible to possible new alignment signals
 from forthcoming DNA sequencing technologies \cite{clarke2009}. The paired-end
 module maps the output of a paired-end sequence alignment algorithm
-(e.g., BWA \cite{li2009a}), the split-read module maps the output of a
-split-read sequence alignment algorithm (e.g., YAHA\cite{faust2012} or
-BWA-SW\cite{li2010}), and the generic module allows users to include
-SV signal types that do not have a specific module implemented (e.g.,
-\emph{a priori} knowledge such as known SV, and/or output from
+(e.g., novoalign~\cite{hercus2013} or BWA~\cite{li2009a}), the split-read module
+maps the output of a split-read sequence alignment algorithm (e.g.,
+YAHA\cite{faust2012} or BWA-SW\cite{li2010}), and the generic module allows
+users to include SV signal types that do not have a specific module implemented
+(e.g., \emph{a priori} knowledge such as known SV, and/or output from
 copy-number variation discovery tools).
 
 Once all of the evidence from the different classes is mapped to breakpoint
@@ -252,30 +252,32 @@ alignment~\cite{li2009b} files from one or more samples.
 
 \subsection*{Comparison of discovery performance on simulated datasets}
 Purely homogeneous DNA samples are rare, especially in a clinical setting where
-biopsies samples include a mixture of both normal and abnormal tissue.  To
+biopsied samples include a mixture of both abnormal and normal tissue.  To
 assess the performance of our framework in this realistic scenario, we simulated
-heterogeneous samples by pooling reads from an affected genome and an unaffected
-genome at varying ratios.  The affected genome was created using
-SVsim~\cite{faustunpub} to modify the human genome (build 37) to include
-5516 non-overlapping deletions identified by the 1000 Genomes Project, and the
-unaffected genome was the unaltered human reference genome (build 37).  The
-ratio of reads from the affected genome to the total number of reads in the
-sample (SV allele frequency) was varied between 5\% and 50\%, and the total
-coverage was varied between 10x and 80x.  For example, to simulate a sample with
-a 5\% SV allele frequency at 10x coverage, we used the paired-end read simulator
-WGSIM~\cite{liunpub} to “sequence” the affected genome at 0.5x coverage and the
-unaffected genome at 9.5x coverage.  The length of each read was 150bp and the
-fragments had a median size of 500bp with a standard deviation of 50bp.  The two
-sets of reads are then pooled into a single 10x-coverage heterogeneous sample.
+heterogeneous samples by pooling reads from an ``abnormal'' genome and a
+``normal'' genome at varying ratios.  The source of the simulated abnormal
+genome was the human reference genome (build 37) modified (using
+SVsim~\cite{faustunpub}) with 5516 non-overlapping deletions identified by the
+1000 Genomes Project.  The  source of the simulated normal genome was unmodified
+human reference genome (build 37).  Each genome was ``sequened'' using the
+paired-end read simulator WGSIM~\cite{liunpub}, and the reades freom the two
+genomes were combined to create a single heterogeneous sample.  The ratio of the
+reads in a heterogenous sample that are from the abnormal genome (SV allele
+frequency) varied between 5\% and 50\%, and the total coverage ranged from 10x
+and 80x.  For example, to simulate a sample with a 5\% SV allele frequency at
+10x coverage, the affected genome was sequenced at 0.5x coverage and the
+unaffected genome at 9.5x coverage.  The two sets of reads were then pooled into
+a single 10x coverage heterogeneous sample.
 
 To assess the impact coverage, SV type, and SV size have on the performance of
 our framework, we simulated a set of experimental genomes using SVsim that
 included 1000 deletions, duplications, insertions, and inversions randomly
 placed on chromosome 10 of the human genome (build 37).  For each SV type, 
-the variant size ranged from 100bp to 10kb.  We used WGSIM to “sequence” each
-simulated genome at 2x, 5x, 10x, 20x, and 50x haploid coverage.  The length of
-each read was 150bp and the fragments had a median size of 500bp with a standard
-deviation of 50bp.
+the variant size ranged from 100bp to 10kb.  We used WGSIM to ``sequence'' each
+simulated genome at 2x, 5x, 10x, 20x, and 50x haploid coverage.  
+
+%The length of each read was 150bp and the fragments had a median size of 500bp
+%with a standard deviation of 50bp.
 
 We compared LUMPY’s sensitivity and false discovery rate to two other SV
 discovery packages GASVPro~\cite{sindi2012} and DELLY~\cite{rausch2012b}.
@@ -310,11 +312,11 @@ genome is low (either lower coverage, low SV allele frequency, or both).  For
 example, at 10x coverage and 20\% SV allele frequency LUMPY detects 30\% of the
 SVs, whereas GASVPro and DELLY detect only 9\% and 5\% of the SVs, respectively.
 This is an 11-fold increase in sensitivity over the next best method.  In
-general, to achieve the sample level of sensitivity as LUMPY, GASVPro and DELLY
-require evidence variants to occur in a sample at twice the rate that LUMPY
-requires.  At 40x coverage LUMPY detects 30\% of variants when the SV allele
-frequency is 5\%, while GASVPro and DELLY do not reach this level of sensitivity
-(36\% and 33\%, respectively) until the SV allele frequency is 10\%.
+general, to achieve the same level of sensitivity as LUMPY, GASVPro and DELLY
+require evidence of affected allele to occur in a sample at twice the rate that
+LUMPY requires.  At 40x coverage LUMPY detects 30\% of variants when the SV
+allele frequency is 5\%, while GASVPro and DELLY do not reach this level of
+sensitivity (36\% and 33\%, respectively) until the SV allele frequency is 10\%.
 
 In the homogeneous experiment, LUMPY is consistently more sensitive than other
 approaches in all cases, has a marked improvement at lower coverage, and can
@@ -578,7 +580,7 @@ Once all the evidence has been considered, an SV call $s$ is make for each
 breakpoint $b\in B$.  The boundaries of the breakpoint intervals $s.l$ and $s.r$
 are the trimmed mixture distributions of the left and right intervals in $b.E$.
 Let $s.l.s=min( \{e.l.s | e\in b.E\})$, $s.l.e=min( \{e.l.e | e\in b.E\})$, and
-$s.l.p[i] = \Sum_{e \in b.E} e.l.p[i-o]$ where $o$ is the offset value
+$s.l.p[i] = \sum_{e \in b.E} e.l.p[i-o]$ where $o$ is the offset value
 $e.l.s-s.l.s$.  Similar for $s.r$.  The value at $s.l.p[i]$ (or $s.r.p[i]$)
 represents the level of agreement among the evidence in $b.E$ that position $i$
 is one end of the breakpoint.  The intervals $s.l$ and $s.r$ are then trimmed to
@@ -768,35 +770,79 @@ intervals are directly encoded in BEDPE ($\textsc{get\_bpi}$).
 
 
 \subsubsection*{Simulation}
-
 Simulated data was used to compare the sensitivity and false discovery rate of
-LUMPY to other SV detection algorithms that rely on either a single signal
-(HYDRA and DELLY PE) or multiple signals (GASVPRO and DELLY SR).  The seed
-sequence for all simulations was chromosome 10 from the human reference genome
-(hg19).  For each SV variety considered (deletions, duplications, insertions,
-and inversions), we used SVsim to simulate a new version of the seed that
-contained 1000 randomly placed, non-overlapping variants ranging between 100 bp
-and 10000 bp. Next, WGSIM was used to sample pair-end reads with a 150 bp
-read length, 500 bp mean outer distance with a 50 bp standard deviation, and
-default error rate settings.  Each simulated genome was sampled to 20x, 5x, and
-2x coverage. Paired-end reads were mapped to the seed sequence with BWA using
-default parameters.  From the BWA output, all split-reads and unmapped reads
-were realigned with the split-read aligner YAHA using a word length of 11 and a
-minimum match of 15. The BWA output was used as input to LUMPY PE
-(paired-end), HYDRA, DELLY (both versions) and GASVPRO, the YAHA output was used
-as input to LUMPY SR (split-read), and both BWA and YAHA output were used as
-input to LUMPY PESR (paired-end and split-read).  In all algorithms, the
-minimum evidence threshold was four.  For LUMPY, the turning parameters $v_l$
-and $v_f$ were set to four, and alignments with mapping qualities equal to zero
-were not considered.
+LUMPY to other SV detection algorithms that use multiple signals (GASVPRO and
+DELLY).   Two types of simulations were performed, a full-genome heterogeneous
+simulation that mixed reads from a modified human reference genome and an
+unaffected human reference genome, and a heterogeneous simulation that included
+reads from a modified chromosome 10 from the human reference genome.
+
+The seed sequences for the heterogeneous simulation included a modified version
+of the human reference genome (build 37) and an unmodified version of the human
+reference genome (build 37).  The modified genome was created using SVsim, and
+included 5516 non-overlapping deletions identified by the 1000 Genomes Project.
+Each simulation included reads from both genomes at varying rates.  We refer to
+the proportion of reads that were from the modified genome as the SV allele
+frequency.  The simulated SV allele frequencies were 5\%, 10\%, 20\% and 50\%,
+and the simulated coverages were 10x, 20x, 40x, and 80x.  For example, in the
+simulation with 5\% SV allele frequency and10x coverage, the modified genome was
+sampled at 0.5x coverage and the unmodified genome was sampled at 9,5x coverage.
+The two sets of reads are then pooled into a single 10x-coverage sample.
+
+The seed sequence for all the homogenous simulations was chromosome 10 from the
+human reference genome (build 37). For each SV variety considered (deletions,
+duplications, insertions, and inversions), we used SVsim to simulate a new
+version of the seed that contained 1000 randomly placed, non-overlapping
+variants ranging between 100 bp and 10000 bp. Each simulated genome was sampled
+to 40x, 20x, 10x, 5x, and 2x coverage.
+
+For all simulations, WGSIM was used to sample pair-end reads with a 150 bp read
+length, 500 bp mean outer distance with a 50 bp standard deviation, and default
+error rate settings.  Paired-end reads were mapped to the seed sequence with
+novoalign using default parameters. From the novoalign output, all split-reads
+and unmapped reads were realigned with the split-read aligner YAHA using a word
+length of 11 and a minimum match of 15. The novoalign output was used as input
+to DELLY and GASVPRO, and both novoalign and YAHA output were used as input to
+LUMPY. In all algorithms, the minimum evidence threshold was four. For LUMPY,
+the turning parameters {\tt min\_non\_overlap} was set to 150, 
+{\tt discordand\_z} was set to 4, {\tt back\_distance} was set to 20, 
+{\tt weight} was set to 1, and {\tt min\_mapping\_threshold} was set to 1.
 
 The reads predicted by each algorithm were compared to the events produced by
-SVsim.  A true positive was a predicted breakpoint that intersected both ends of
-a simulated breakpoint, all other predictions were considered to be false
-positives, and all other missed simulated events were false negatives.  Since
-the output of DELLY is a single interval, we took the 100 bp regions flanking
-the ends of the predicted interval as the predicted breakpoint.  A similar
-conversion was performed for HYDRA.
+SVsim. A true positive was a predicted breakpoint that intersected within 50 bp
+of both ends of a simulated breakpoint, all other predictions were considered to
+be false positives, and all other missed simulated events were false negatives.
+Since the output of DELLY is a single interval, we took the 100 bp regions
+flanking the ends of the predicted interval as the predicted breakpoint.
+
+%Simulated data was used to compare the sensitivity and false discovery rate of
+%LUMPY to other SV detection algorithms that rely on either a single signal
+%(HYDRA and DELLY PE) or multiple signals (GASVPRO and DELLY SR).  The seed
+%sequence for all simulations was chromosome 10 from the human reference genome
+%(hg19).  For each SV variety considered (deletions, duplications, insertions,
+%and inversions), we used SVsim to simulate a new version of the seed that
+%contained 1000 randomly placed, non-overlapping variants ranging between 100 bp
+%and 10000 bp. Next, WGSIM was used to sample pair-end reads with a 150 bp
+%read length, 500 bp mean outer distance with a 50 bp standard deviation, and
+%default error rate settings.  Each simulated genome was sampled to 20x, 5x, and
+%2x coverage. Paired-end reads were mapped to the seed sequence with BWA using
+%default parameters.  From the BWA output, all split-reads and unmapped reads
+%were realigned with the split-read aligner YAHA using a word length of 11 and a
+%minimum match of 15. The BWA output was used as input to LUMPY PE
+%(paired-end), HYDRA, DELLY (both versions) and GASVPRO, the YAHA output was used
+%as input to LUMPY SR (split-read), and both BWA and YAHA output were used as
+%input to LUMPY PESR (paired-end and split-read).  In all algorithms, the
+%minimum evidence threshold was four.  For LUMPY, the turning parameters $v_l$
+%and $v_f$ were set to four, and alignments with mapping qualities equal to zero
+%were not considered.
+%
+%The reads predicted by each algorithm were compared to the events produced by
+%SVsim.  A true positive was a predicted breakpoint that intersected both ends of
+%a simulated breakpoint, all other predictions were considered to be false
+%positives, and all other missed simulated events were false negatives.  Since
+%the output of DELLY is a single interval, we took the 100 bp regions flanking
+%the ends of the predicted interval as the predicted breakpoint.  A similar
+%conversion was performed for HYDRA.
 
 \section*{Authors contributions}
 R. Layer developed the algorithms, wrote the software, and performed the
