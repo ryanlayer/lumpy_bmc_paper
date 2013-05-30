@@ -48,11 +48,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \author{
 Ryan M Layer$^1$\email{Ryan M Layer - rl6sf@virginia.edu}\and
-Ira M Hall\correspondingauthor$^{2,3}$
-\email{Ira M Hall\correspondingauthor - irahall@virginia.edu}
-and
 Aaron R Quinlan\correspondingauthor$^{2,3}$
 \email{Aaron R Quinlan\correspondingauthor - arq5x@virginia.edu}
+and
+Ira M Hall\correspondingauthor$^{2,3}$
+\email{Ira M Hall\correspondingauthor - irahall@virginia.edu}
 }
 
 \address{\iid(1)Department of Computer Science, University of Virginia,
@@ -258,23 +258,23 @@ heterogeneous samples by pooling reads from an ``abnormal'' genome and a
 ``normal'' genome at varying ratios.  The source of the simulated abnormal
 genome was the human reference genome (build 37) modified (using
 SVsim~\cite{faustunpub}) with 5516 non-overlapping deletions identified by the
-1000 Genomes Project.  The  source of the simulated normal genome was unmodified
-human reference genome (build 37).  Each genome was ``sequened'' using the
-paired-end read simulator WGSIM~\cite{liunpub}, and the reades freom the two
-genomes were combined to create a single heterogeneous sample.  The ratio of the
-reads in a heterogenous sample that are from the abnormal genome (SV allele
-frequency) varied between 5\% and 50\%, and the total coverage ranged from 10x
-and 80x.  For example, to simulate a sample with a 5\% SV allele frequency at
-10x coverage, the affected genome was sequenced at 0.5x coverage and the
-unaffected genome at 9.5x coverage.  The two sets of reads were then pooled into
-a single 10x coverage heterogeneous sample.
+1000 Genomes Project.  The  source of the simulated normal genome the was
+unmodified human reference genome (build 37).  Each genome was ``sequened''
+using the paired-end read simulator WGSIM~\cite{liunpub}, and the reades from
+the two genomes were combined to create a single heterogeneous sample.  The
+ratio of the reads in a heterogenous sample that were from the abnormal genome
+(SV allele frequency) varied between 5\% and 50\%, and the total coverage ranged
+from 10X and 80X.  For example, to simulate a sample with a 5\% SV allele
+frequency at 10X coverage, the affected genome was sequenced at 0.5X coverage
+and the unaffected genome at 9.5X coverage.  The two sets of reads were then
+pooled into a single 10X coverage heterogeneous sample.
 
-To assess the impact coverage, SV type, and SV size have on the performance of
+To assess the impact of coverage, SV type, and SV size on the performance of
 our framework, we simulated a set of experimental genomes using SVsim that
 included 1000 deletions, duplications, insertions, and inversions randomly
 placed on chromosome 10 of the human genome (build 37).  For each SV type, 
 the variant size ranged from 100bp to 10kb.  We used WGSIM to ``sequence'' each
-simulated genome at 2x, 5x, 10x, 20x, and 50x haploid coverage.  
+simulated genome at 2X, 5X, 10X, 20X, and 50X haploid coverage.  
 
 %The length of each read was 150bp and the fragments had a median size of 500bp
 %with a standard deviation of 50bp.
@@ -284,8 +284,8 @@ discovery packages GASVPro~\cite{sindi2012} and DELLY~\cite{rausch2012b}.
 GASVPro and DELLY were selected because both tools are widely used (DELLY is
 part of the 1000 Genomes Project analysis), both consider a secondary SV signal
 along with paired-end alignments (coverage and unmapped/split-reads,
-respectively), and both have demonstrated improvement the popular SV tools
-Breakdancer~\cite{chen2009} and HYDRA~\cite{quinlan2010b}. 
+respectively), and both have demonstrated improvement over the popular SV tools
+like Breakdancer~\cite{chen2009} and HYDRA~\cite{quinlan2010b}. 
 
 
 %In order to assess the performance of our framework, we compared LUMPY's
@@ -306,32 +306,35 @@ simulated breakpoints in order to measure each approach’s sensitivity and fals
 discovery rate (FDR) for both the heterogeneous experiment (Figure 2) and the
 homogeneous experiment (Figure 3).
 
-In the heterogeneous experiment, LUMPY is more sensitive than GASVPro and DELLY
-in all cases, and has marked improvement when the coverage of the affected
+In the heterogeneous experiment, LUMPY was more sensitive than GASVPro and DELLY
+in all cases, and had marked improvement when the coverage of the abnormal
 genome is low (either lower coverage, low SV allele frequency, or both).  For
-example, at 10x coverage and 20\% SV allele frequency LUMPY detects 30\% of the
+example, at 10X coverage and 20\% SV allele frequency LUMPY detects 30\% of the
 SVs, whereas GASVPro and DELLY detect only 9\% and 5\% of the SVs, respectively.
-This is an 11-fold increase in sensitivity over the next best method.  In
+This was an 11-fold increase in sensitivity over the next best method.  In
 general, to achieve the same level of sensitivity as LUMPY, GASVPro and DELLY
-require evidence of affected allele to occur in a sample at twice the rate that
-LUMPY requires.  At 40x coverage LUMPY detects 30\% of variants when the SV
-allele frequency is 5\%, while GASVPro and DELLY do not reach this level of
-sensitivity (36\% and 33\%, respectively) until the SV allele frequency is 10\%.
+required evidence from the abnormal genome to occur at twice the rate that LUMPY
+required.  At 40X coverage LUMPY detected 30\% of variants when the SV allele
+frequency was 5\%, while GASVPro and DELLY did not reach that level of
+sensitivity (36\% and 33\%, respectively) until the SV allele frequency was
+10\%.
 
-In the homogeneous experiment, LUMPY is consistently more sensitive than other
-approaches in all cases, has a marked improvement at lower coverage, and can
-detect all SV types (GASVPro does detect duplications and DELLY does not detect
-insertions).   For example, LUMPY detects 31\% and 79\% of all deletions at 2
-and 5 fold genome coverage, whereas GASVPro and DELLY detect 4.3\%/35\% and
-3.4\%/38.4\%, respectively.  At lower coverage (i.e., 2 and 5X), LUMPY’s
-sensitivity is greater than all other approaches across all SV types. At most,
-LUMPY was 9 times more sensitive than the second most sensitive approach at low
-coverage (LUMPY 31\% vs. DELLY 3.4\% for deletions at 2X coverage). At worst, it
-was 1.01 times more sensitive for inversions at 5X coverage (LUMPY 90\% vs.
-GASVPRO 82\%). At higher (20X and 50x) coverage, LUMPY’s sensitivity advantage
-persists; it ranges from 90\% to 98.7\% across all SV types, whereas GASVPRO and
-DELLY range from 67\% to 93\% and from 82\% to 95\%, respectively (excluding the
-SV types which GASVPRO and DELLY are incapable of detecting).  
+In the homogeneous experiment, LUMPY was consistently more sensitive than other
+approaches in all cases, had a marked improvement at lower coverage, and was
+able to detect all SV types (although GASVPro does detect duplications or
+insertions and DELLY does not detect insertions, our tests still ran the tools
+in those cases and consider all calls that were made).  For example, LUMPY
+detected 31\% and 79\% of all deletions at 2X and 5X coverage, whereas GASVPro
+and DELLY detected 4.3\%/35\% and 3.4\%/38.4\%, respectively.  At lower coverage
+(i.e., 2X and 5X), LUMPY’s sensitivity was greater than all other approaches
+across all SV types. At most, LUMPY was 9 times more sensitive than the second
+most sensitive approach at low coverage (LUMPY 31\% vs. DELLY 3.4\% for
+deletions at 2X coverage). At worst, LUMPY was 1.01 times more sensitive for
+inversions at 5X coverage (LUMPY 90\% vs.  GASVPRO 82\%). At higher (20X and
+50X) coverage, LUMPY’s sensitivity advantage persisted; it ranged from 90\% to
+98.7\% across all SV types, whereas GASVPRO and DELLY ranged from 67\% to 93\%
+and from 82\% to 95\%, respectively (excluding the SV types which GASVPRO and
+DELLY are incapable of detecting).  
 
 
 %Tratiee predicted SV breakpoints from each discovery approach were compared to the
@@ -385,21 +388,53 @@ SV types which GASVPRO and DELLY are incapable of detecting).
 Improved sensitivity is crucial for comprehensive studies of genome variation,
 yet high sensitivity at the cost of an inflated false discovery rate (FDR) is
 undesirable given the time and cost associated with pursuing the putative
-biological impact of spurious variation.
+biological impact of spurious variation.  We compared the FDR for each SV
+discovery tool using the same heterogeneous and homogeneous simulations
+described above.
 
-We compared the FDR for each SV discovery tool using the same simulated
-SVs as described above (Table 1).The false discovery rate for all tools ranged
-from 0.0\% to 24.2\%. Overall, DELLY-SR had the lowest FDR across all SV types
-and genome coverage levels, yet the conservative calling comes at the cost of
-lower sensitivity compared to the other tools. While LUMPY's FDR was
-slightly higher than GASVPRO for deletions, its FDR was consistently
-low (0.0\% - 5.0\%) across all SV types and coverage levels. In contrast,
-GASVPRO had much higher FDRs for insertions and inversions and
-its FDR increased at lower coverage levels.  HYDRA had consistent FDRs across
-SV types and coverage levels (0.0\% to 8.9\%), yet these rates were always
-higher than the analogous LUMPY FDRs. These results indicate that LUMPY's
-probabilistic framework afford substantial improvements in discovery
-sensitivity while maintaining low false discovery rates.
+In the heterogeneous simulation the FDR for all tools was low, ranging from 0\%
+to 0.03\% (excluding the 10X coverage/0.05 SV allele frequency case where
+GASVPro made very few calls).  While DELLY had the lowest overall FDR, ranging
+from 0\% to 0.004\%, LUMPY either matched or beat DELLY’s FDR in cases of low SV
+allele frequency.  Outside of the highest coverage levels and SV allele
+frequencies, LUMPY maintained an FDR of less than 0.01\%.  At worst LUMPY's FDR
+was 0.03\%.
+
+In the homogenous simulation, the LUMPY’s FDR was comparable to both GASVPro and
+DELLY in all but the highest coverage cases.   At 2X, 5X, and 10X coverage
+LUMPY’s FDR did not exceed 0.015\% across all SV types.  For the same coverage
+levels and for the SV types that GASVPro and DELLY were able to make
+predictions, the max FDR was 0.002\% and 0.009\%, respectively.  For
+duplications LUMPY’s FDR ranged from 0\% to 0.06\% and DELLY’s FDR ranged from
+0\% to 0.02\%.  Neither GASVPro nor DELLY report the ability to detect
+insertions, but in both cases calls where made.  Not surprisingly, the FDR in
+these cases was much higher, while the FDR for LUMPY was consistent with the
+other SV types, ranging from 0\% to 0.07\%.  For deletions LUMPY’ FDR ranged
+from 0\% to 0.11\%, GASVPro’s FDR ranged from 0\% to 0.002\%, and DELLY’s FDR
+ranged from 0\% to 0.05\%.
+
+These results indicate that LUMPY’s probabilistic framework afford substantial
+improvements in discovery sensitivity while maintaining low false discovery
+rates.
+
+%Improved sensitivity is crucial for comprehensive studies of genome variation,
+%yet high sensitivity at the cost of an inflated false discovery rate (FDR) is
+%undesirable given the time and cost associated with pursuing the putative
+%biological impact of spurious variation.
+%
+%We compared the FDR for each SV discovery tool using the same simulated
+%SVs as described above (Table 1).The false discovery rate for all tools ranged
+%from 0.0\% to 24.2\%. Overall, DELLY-SR had the lowest FDR across all SV types
+%and genome coverage levels, yet the conservative calling comes at the cost of
+%lower sensitivity compared to the other tools. While LUMPY's FDR was
+%slightly higher than GASVPRO for deletions, its FDR was consistently
+%low (0.0\% - 5.0\%) across all SV types and coverage levels. In contrast,
+%GASVPRO had much higher FDRs for insertions and inversions and
+%its FDR increased at lower coverage levels.  HYDRA had consistent FDRs across
+%SV types and coverage levels (0.0\% to 8.9\%), yet these rates were always
+%higher than the analogous LUMPY FDRs. These results indicate that LUMPY's
+%probabilistic framework afford substantial improvements in discovery
+%sensitivity while maintaining low false discovery rates.
 
 %\begin{table}[h!b!p!]
 %\small
@@ -437,14 +472,15 @@ signals, they first exploit one signal to drive discovery and then refine
 candidates with a second signal. An intrinsic limitation of such stepwise
 approaches is other available signals cannot increase the number of true
 positive SV calls beyond those candidates identified by the signal used for
-initial discovery. DELLY, for example, uses split-read alignment strategies to
-refine candidate variants identified via graph ``cliques'' of discordant
-paired-end alignments~\cite{rausch2012b}. As illustrated in Figure 2, DELLY's
-sensitivity is reduced when examining both SV signals in stepwise fashion,
-whereas LUMPY's sensitivity increases when both signals are integrated. The
-impact on sensitivity is especially dramatic at lower sequence depth: at 2X
-coverage, DELLY's deletion sensitivity is reduced by 60\%, while LUMPY's
-sensitivity increased six-fold when integrating both signals.
+initial discovery. 
+%DELLY, for example, uses split-read alignment strategies to
+%refine candidate variants identified via graph ``cliques'' of discordant
+%paired-end alignments~\cite{rausch2012b}. As illustrated in Figure 2, DELLY's
+%sensitivity is reduced when examining both SV signals in stepwise fashion,
+%whereas LUMPY's sensitivity increases when both signals are integrated. The
+%impact on sensitivity is especially dramatic at lower sequence depth: at 2X
+%coverage, DELLY's deletion sensitivity is reduced by 60\%, while LUMPY's
+%sensitivity increased six-fold when integrating both signals.
 
 It is well-known that variant calling is improved by integrating data from
 multiple samples~\cite{handsaker2011, mckenna2010, hormozdiari2011,
@@ -456,14 +492,14 @@ Genomes Project) comprising 104 million read pairs in less than an hour with one
 thread, we anticipate that simultaneous analysis of tens to hundreds of genomes
 will be possible with LUMPY using commodity hardware.
 
-Furthermore, by integrating multiple signals, the resolution of our
-predicted breakpoint intervals is increased relative to the resolution yielded
-by examining either signal on its own. For example, at 20X coverage, use of both
-signals refines deletion breakpoint predictions to within a median of 5 bp of
-the true location. When paired-end alignments alone drive discovery, our
-breakpoint resolution is reduced by more than 50 fold (median of 265 bp) and as
-expected, this increase in resolution is observed across all other SV types
-(data not shown).
+%Furthermore, by integrating multiple signals, the resolution of our predicted
+%breakpoint intervals is increased relative to the resolution yielded by
+%examining either signal on its own. For example, at 20X coverage, use of both
+%signals refines deletion breakpoint predictions to within a median of 5 bp of
+%the true location. When paired-end alignments alone drive discovery, our
+%breakpoint resolution is reduced by more than 50 fold (median of 265 bp) and as
+%expected, this increase in resolution is observed across all other SV types
+%(data not shown).
 
 \section*{Discussion}
 We have developed a general probabilistic framework for accurate SV discovery,
@@ -577,18 +613,19 @@ start position for the left intervals in $m.E$, and  $m.l.e$ is the mean
 end position for the left intervals in $m.E$, similar for $m.r$.
 
 Once all the evidence has been considered, an SV call $s$ is make for each
-breakpoint $b\in B$.  The boundaries of the breakpoint intervals $s.l$ and $s.r$
-are the trimmed mixture distributions of the left and right intervals in $b.E$.
-Let $s.l.s=min( \{e.l.s | e\in b.E\})$, $s.l.e=min( \{e.l.e | e\in b.E\})$, and
-$s.l.p[i] = \sum_{e \in b.E} e.l.p[i-o]$ where $o$ is the offset value
-$e.l.s-s.l.s$.  Similar for $s.r$.  The value at $s.l.p[i]$ (or $s.r.p[i]$)
-represents the level of agreement among the evidence in $b.E$ that position $i$
-is one end of the breakpoint.  The intervals $s.l$ and $s.r$ are then trimmed to
-include only those positions that are in the top percentile (e.g., top 99.9
-percent of values).  An outlier in $b.E$ will extend the interval $s.l$, but the
-extended region will have little support from other elements in $b.E$ and values
-of $s.p$ in that region will relatively small and are likely to be removed in
-the trimming process. 
+breakpoint $b\in B$ that meets a user-defined minimum evidence threshold (e.g.,
+four pieces of evidence).  The boundaries of the breakpoint intervals $s.l$ and
+$s.r$ are the trimmed mixture distributions of the left and right intervals in
+$b.E$.  Let $s.l.s=min( \{e.l.s | e\in b.E\})$, $s.l.e=min( \{e.l.e | e\in
+b.E\})$, and $s.l.p[i] = \sum_{e \in b.E} e.l.p[i-o]$ where $o$ is the offset
+value $e.l.s-s.l.s$.  Similar for $s.r$.  The value at $s.l.p[i]$ (or
+$s.r.p[i]$) represents the level of agreement among the evidence in $b.E$ that
+position $i$ is one end of the breakpoint.  The intervals $s.l$ and $s.r$ are
+then trimmed to include only those positions that are in the top percentile
+(e.g., top 99.9 percent of values).  An outlier in $b.E$ will extend the
+interval $s.l$, but the extended region will have little support from other
+elements in $b.E$ and values of $s.p$ in that region will relatively small and
+are likely to be removed in the trimming process. 
 
 \subsection*{Breakpoint Evidence}
 
@@ -784,17 +821,18 @@ included 5516 non-overlapping deletions identified by the 1000 Genomes Project.
 Each simulation included reads from both genomes at varying rates.  We refer to
 the proportion of reads that were from the modified genome as the SV allele
 frequency.  The simulated SV allele frequencies were 5\%, 10\%, 20\% and 50\%,
-and the simulated coverages were 10x, 20x, 40x, and 80x.  For example, in the
-simulation with 5\% SV allele frequency and10x coverage, the modified genome was
-sampled at 0.5x coverage and the unmodified genome was sampled at 9,5x coverage.
-The two sets of reads are then pooled into a single 10x-coverage sample.
+and the simulated coverages were 10X, 20X, 40X, and 80X.  For example, in the
+simulation with 5\% SV allele frequency and 10X coverage, the modified genome
+was sampled at 0.5X coverage and the unmodified genome was sampled at 9,5X
+coverage.  The two sets of reads are then pooled into a single 10X coverage
+sample.
 
 The seed sequence for all the homogenous simulations was chromosome 10 from the
 human reference genome (build 37). For each SV variety considered (deletions,
 duplications, insertions, and inversions), we used SVsim to simulate a new
 version of the seed that contained 1000 randomly placed, non-overlapping
 variants ranging between 100 bp and 10000 bp. Each simulated genome was sampled
-to 40x, 20x, 10x, 5x, and 2x coverage.
+to 40X, 20X, 10X, 5X, and 2X coverage.
 
 For all simulations, WGSIM was used to sample pair-end reads with a 150 bp read
 length, 500 bp mean outer distance with a 50 bp standard deviation, and default
@@ -888,8 +926,14 @@ heterogeneous sample}
 %\label{sensitivity:fig}
 %\end{figure}
 SV discovery sensitivity and false discovery rate (FDR) for LUMPY, GASVPRO, and
-DELLY for different ratios of affected to unaffected reads at different coverage
-levels.
+DELLY for different ratios of abnormal to normal reads (SV allele frequence) at
+different coverage levels.  In all cases, LUMPY was more sensitive than GASVPro
+and DELLY, and had marked improvement when the coverage of the abnormal
+genome is low (either lower coverage, low SV allele frequency, or both).  In
+general, to achieve the same level of sensitivity as LUMPY, GASVPro and DELLY
+required evidence from the abnormal genome to occur at twice the rate that LUMPY
+required. 
+
 
 \subsection*{Figure 3 - Sensitivity and false discovery rate in a homogeneous
 sample on chromosome 10}
@@ -898,7 +942,12 @@ sample on chromosome 10}
 %\label{sensitivity:fig}
 %\end{figure}
 SV discovery sensitivity and false discovery rate (FDR) for LUMPY, GASVPRO, and
-DELLY for different SV types across multiple genome coverage levels.
+DELLY for different SV types across multiple genome coverage levels.  LUMPY was
+consistently more sensitive than other approaches in all cases, had a marked
+improvement at lower coverage, and was able to detect all SV types.  Although
+GASVPro does detect duplications or insertions and DELLY does not detect
+insertions, our tests still ran the tools in those cases and consider all calls
+that were made.
 
 
 \section*{Algorithms}
