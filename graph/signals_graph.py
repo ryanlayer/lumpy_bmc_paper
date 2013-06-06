@@ -286,7 +286,7 @@ for coverage in sorted(R.keys()):
         ax.set_yticklabels([]) 
         ax.spines['left'].set_visible(False)
 
-    ax.set_xticks(ind+width*2)
+    ax.set_xticks(ind+width*3)
     ax.set_xlabel('SV Allele Frequency')
     ax.set_xticklabels(x) 
     ax.spines['top'].set_visible(False)
@@ -297,12 +297,15 @@ for coverage in sorted(R.keys()):
     #c+=2
     c+=1
 
-l=fig.legend((l_pe_p[0],  l_sr_p[0], l_pesr_p[0], d_pe_p[0], d_sr_p[0]),\
+l=fig.legend((l_pe_p[0],  l_sr_p[0], l_pesr_p[0], 
+				g_pe_p[0], g_sr_p[0],\
+				d_pe_p[0], d_sr_p[0]),\
                 ('LUMPY pe', 'LUMPY sr','LUMPY pesr',\
 				'GASV','GASVPro',\
 				'DELLY pe','DELLY sr'),\
                 prop={'size':10},\
-                loc=10,ncol=7)
+                loc=10,ncol=7,
+				columnspacing=1)
 l.draw_frame(False)
 
 matplotlib.pyplot.savefig('signals.png',bbox_inches='tight')
