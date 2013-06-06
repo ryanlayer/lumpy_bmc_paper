@@ -8,6 +8,8 @@ from optparse import OptionParser
 lumpy_color_1='#003366'
 lumpy_color_2='#0080ff'
 lumpy_color_3='#99ccff'
+gasv_color_1='#006600'
+gasv_color_2='#00ff00'
 delly_color_1='#660000'
 delly_color_2='#ff0000'
 
@@ -56,13 +58,15 @@ for l in f:
         R[coverage][proportion]['l_pe'] = [float(a[1]),float(a[2])]
         R[coverage][proportion]['l_sr'] = [float(a[3]),float(a[4])]
         R[coverage][proportion]['l_pesr'] = [float(a[5]),float(a[6])]
-        R[coverage][proportion]['d_pe'] = [float(a[7]),float(a[8])]
-        R[coverage][proportion]['d_sr'] = [float(a[9]),float(a[10])]
+        R[coverage][proportion]['g_pe'] = [float(a[7]),float(a[8])]
+        R[coverage][proportion]['g_sr'] = [float(a[9]),float(a[10])]
+        R[coverage][proportion]['d_pe'] = [float(a[11]),float(a[12])]
+        R[coverage][proportion]['d_sr'] = [float(a[13]),float(a[14])]
 
 f.close()
 
 
-width = 0.18   
+width = 0.12 
 matplotlib.rcParams.update({'font.size': 12})
 fig = matplotlib.pyplot.figure(figsize=(10,5),dpi=300)
 fig.subplots_adjust(wspace=.05,left=.01,bottom=.01)
@@ -72,6 +76,8 @@ for coverage in sorted(R.keys()):
     l_pe = []
     l_sr = []
     l_pesr = []
+    g_pe = []
+    g_sr = []
     d_pe = []
     d_sr = []
  
@@ -89,6 +95,8 @@ for coverage in sorted(R.keys()):
         l_pe.append( float(R[coverage][proportion]['l_pe'][0])/ float(T))
         l_sr.append( float(R[coverage][proportion]['l_sr'][0])/ float(T))
         l_pesr.append( float(R[coverage][proportion]['l_pesr'][0])/ float(T))
+        g_pe.append( float(R[coverage][proportion]['g_pe'][0])/ float(T))
+        g_sr.append( float(R[coverage][proportion]['g_sr'][0])/ float(T))
         d_pe.append( float(R[coverage][proportion]['d_pe'][0])/ float(T))
         d_sr.append( float(R[coverage][proportion]['d_sr'][0])/ float(T))
 
@@ -115,8 +123,10 @@ for coverage in sorted(R.keys()):
     l_pe_p = ax.bar(ind, l_pe, width, color=lumpy_color_1)
     l_sr_p = ax.bar(ind+width*1, l_sr, width, color=lumpy_color_2)
     l_pesr_p = ax.bar(ind+width*2, l_pesr, width, color=lumpy_color_3)
-    d_pe_p = ax.bar(ind+width*3, d_pe, width, color=delly_color_1)
-    d_sr_p = ax.bar(ind+width*4, d_sr, width, color=delly_color_2)
+    g_pe_p = ax.bar(ind+width*3, g_pe, width, color=gasv_color_1)
+    g_sr_p = ax.bar(ind+width*4, g_sr, width, color=gasv_color_2)
+    d_pe_p = ax.bar(ind+width*5, d_pe, width, color=delly_color_1)
+    d_sr_p = ax.bar(ind+width*6, d_sr, width, color=delly_color_2)
 
 
 
@@ -163,6 +173,8 @@ for coverage in sorted(R.keys()):
     l_pe = []
     l_sr = []
     l_pesr = []
+    g_pe = []
+    g_sr = []
     d_pe = []
     d_sr = []
  
@@ -192,6 +204,22 @@ for coverage in sorted(R.keys()):
                 float(R[coverage][proportion]['l_pesr'][1])))
         else:
             l_pesr.append(0)
+
+        if float(R[coverage][proportion]['g_pe'][0])+ \
+            float(R[coverage][proportion]['g_pe'][1]) > 0:
+            g_pe.append(float(R[coverage][proportion]['g_pe'][1])/ \
+                (float(R[coverage][proportion]['g_pe'][0])+ \
+                float(R[coverage][proportion]['g_pe'][1])))
+        else:
+            g_pe.append(0)
+
+        if float(R[coverage][proportion]['g_sr'][0])+ \
+            float(R[coverage][proportion]['g_sr'][1]) > 0:
+            g_sr.append(float(R[coverage][proportion]['g_sr'][1])/ \
+                (float(R[coverage][proportion]['g_sr'][0])+ \
+                float(R[coverage][proportion]['g_sr'][1])))
+        else:
+            g_sr.append(0)
 
         if float(R[coverage][proportion]['d_pe'][0])+ \
             float(R[coverage][proportion]['d_pe'][1]) > 0:
@@ -228,8 +256,10 @@ for coverage in sorted(R.keys()):
     l_pe_p = ax.bar(ind, l_pe, width, color=lumpy_color_1)
     l_sr_p = ax.bar(ind+width*1, l_sr, width, color=lumpy_color_2)
     l_pesr_p = ax.bar(ind+width*2, l_pesr, width, color=lumpy_color_3)
-    d_pe_p = ax.bar(ind+width*3, d_pe, width, color=delly_color_1)
-    d_sr_p = ax.bar(ind+width*4, d_sr, width, color=delly_color_2)
+    g_pe_p = ax.bar(ind+width*3, g_pe, width, color=gasv_color_1)
+    g_sr_p = ax.bar(ind+width*4, g_sr, width, color=gasv_color_2)
+    d_pe_p = ax.bar(ind+width*5, d_pe, width, color=delly_color_1)
+    d_sr_p = ax.bar(ind+width*6, d_sr, width, color=delly_color_2)
 
     #for i in range(1,5,1):
         #matplotlib.pyplot.hlines(i/10.0,-0.5,5,colors='w')
@@ -268,9 +298,11 @@ for coverage in sorted(R.keys()):
     c+=1
 
 l=fig.legend((l_pe_p[0],  l_sr_p[0], l_pesr_p[0], d_pe_p[0], d_sr_p[0]),\
-                ('LUMPY pe', 'LUMPY sr','LUMPY pesr','DELLY pe','DELLY sr'),\
+                ('LUMPY pe', 'LUMPY sr','LUMPY pesr',\
+				'GASV','GASVPro',\
+				'DELLY pe','DELLY sr'),\
                 prop={'size':10},\
-                loc=10,ncol=5)
+                loc=10,ncol=7)
 l.draw_frame(False)
 
 matplotlib.pyplot.savefig('signals.png',bbox_inches='tight')
